@@ -1,15 +1,10 @@
 import React from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { Text, FlatList } from 'react-native';
 import EMOJI_DB from '../../db/EmojiDB';
 import type { EmojiListProps } from 'src/types';
 
-const EmojiList = ({
-  width,
-  height,
-  numberOfColumns = 3,
-  onSelectEmoji,
-}: EmojiListProps) => {
-  const renderEmoji = ({ item }) => {
+const EmojiList = ({ numberOfColumns = 3 }: EmojiListProps) => {
+  const renderEmoji = ({ item }: { item: any }) => {
     return <Text>{item.emoji}</Text>;
   };
 
