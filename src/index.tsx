@@ -1,3 +1,2 @@
-export function multiply(a: number, b: number): Promise<number> {
-  return Promise.resolve(a * b);
-}
+export { default as EmojiList } from './components/EmojiList';
+export { default as EmojiDB } from './db/EmojiDB';
