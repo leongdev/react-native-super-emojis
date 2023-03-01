@@ -35,8 +35,7 @@
     "run:android": "yarn --cwd example android",
     "run:ios": "yarn --cwd example ios",
     "run:web": "yarn --cwd example web",
-    "bootstrap": "yarn example && yarn install",
-    "prepare": "bob build"
+    "bootstrap": "yarn example && yarn install"
   },
   "keywords": [
     "react-native",
