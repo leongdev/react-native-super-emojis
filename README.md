@@ -1,6 +1,6 @@
-# react-native-super-emojis
+# React Native Super Emoji
 
-A react native library to render all current emojis, on any size 
+A react native library to render all current emojis, on any size
 
 ## Installation
 
@@ -11,11 +11,28 @@ npm install react-native-super-emojis
 ## Usage
 
 ```js
-import { multiply } from 'react-native-super-emojis';
+import { EmojiList } from 'react-native-super-emojis';
 
-// ...
+const sections = [
+  'Smileys & Emotion',
+  'People & Body',
+  'Animals & Nature',
+  'Food & Drink',
+  'Travel & Places',
+  'Activities',
+  'Objects',
+  'Symbols',
+  'Flags',
+];
 
-const result = await multiply(3, 7);
+const [emojiName, setEmojiName] = useState('')
+
+<EmojiList
+  sectionsList={sections}
+  numberOfColumns={7}
+  searchEmoji={emojiName}
+/>
+
 ```
 
 ## Contributing
@@ -27,5 +44,3 @@ See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the 
 MIT
 
 ---
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

@@ -5,7 +5,16 @@ import type { EmojiListProps } from 'src/types';
 import type { ListRenderItem } from 'react-native';
 import type { IEmojiItem } from '../../types/index';
 
-const EmojiList = ({ numberOfColumns = 6, onSelectEmoji }: EmojiListProps) => {
+const EmojiList = ({
+  numberOfColumns = 6,
+  onSelectEmoji,
+  sectionsList,
+  sectionNode,
+  sectionsStyle,
+  sectionsTextStyle,
+  sectionsTextContainerStyle,
+  searchEmoji,
+}: EmojiListProps) => {
   const renderEmoji: ListRenderItem<IEmojiItem> = ({ item }) => {
     return (
       <Pressable
@@ -20,6 +29,71 @@ const EmojiList = ({ numberOfColumns = 6, onSelectEmoji }: EmojiListProps) => {
     );
   };
 
+  const renderSections: ListRenderItem<string[]> = ({ item, index }) => {
+    const EMOJIS = EMOJI_DB.filter((emoji) => emoji.category === index);
+
+    return (
+      <View style={sectionsStyle}>
+        <View style={sectionsTextContainerStyle}>
+          <Text style={sectionsTextStyle}>{item}</Text>
+          {sectionNode && sectionNode}
+        </View>
+        <FlatList
+          data={EMOJIS}
+          numColumns={numberOfColumns}
+          keyExtractor={(_, index) => `${index}`}
+          renderItem={renderEmoji}
+          bounces={false}
+          alwaysBounceVertical={false}
+          alwaysBounceHorizontal={false}
+        />
+      </View>
+    );
+  };
+
+  if (searchEmoji) {
+    const EMOJIS = EMOJI_DB.filter((emoji) =>
+      emoji.description.includes(searchEmoji)
+    );
+
+    return (
+      <View style={styles.iconListContainer}>
+        <FlatList
+          data={EMOJIS}
+          numColumns={numberOfColumns}
+          keyExtractor={(_, index) => `${index}`}
+          renderItem={renderEmoji}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          alwaysBounceVertical={false}
+          alwaysBounceHorizontal={false}
+          bounces={false}
+        />
+      </View>
+    );
+  }
+
+  if (sectionsList) {
+    if (sectionsList.length > 9) {
+      throw new Error('You can only have 9 sections');
+    }
+
+    return (
+      <View style={styles.iconListContainer}>
+        <FlatList
+          data={sectionsList}
+          keyExtractor={(_, index) => `${index}`}
+          renderItem={renderSections}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          alwaysBounceVertical={false}
+          alwaysBounceHorizontal={false}
+          bounces={false}
+        />
+      </View>
+    );
+  }
+
   return (
     <View style={styles.iconListContainer}>
       <FlatList
@@ -27,6 +101,11 @@ const EmojiList = ({ numberOfColumns = 6, onSelectEmoji }: EmojiListProps) => {
         numColumns={numberOfColumns}
         keyExtractor={(_, index) => `${index}`}
         renderItem={renderEmoji}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        alwaysBounceVertical={false}
+        alwaysBounceHorizontal={false}
+        bounces={false}
       />
     </View>
   );

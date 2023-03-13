@@ -5,6 +5,17 @@ import { EmojiList } from 'react-native-super-emojis';
 
 export default function App() {
   const [selectedIcon, setSelectedIcon] = useState('');
+  const sections = [
+    'Smileys & Emotion',
+    'People & Body',
+    'Animals & Nature',
+    'Food & Drink',
+    'Travel & Places',
+    'Activities',
+    'Objects',
+    'Symbols',
+    'Flags',
+  ];
   return (
     <View style={styles.container}>
       <View style={styles.emojiContainer}>
@@ -12,8 +23,10 @@ export default function App() {
       </View>
 
       <EmojiList
-        numberOfColumns={6}
+        sectionsList={sections}
         onSelectEmoji={(emoji) => setSelectedIcon(emoji)}
+        numberOfColumns={7}
+        searchEmoji="tear"
       />
     </View>
   );
