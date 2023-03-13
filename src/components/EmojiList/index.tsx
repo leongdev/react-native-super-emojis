@@ -29,7 +29,7 @@ const EmojiList = ({
     );
   };
 
-  const renderSections: ListRenderItem<string[]> = ({ item, index }) => {
+  const renderSections: ListRenderItem<any> = ({ item, index }) => {
     const EMOJIS = EMOJI_DB.filter((emoji) => emoji.category === index);
 
     return (
@@ -41,7 +41,7 @@ const EmojiList = ({
         <FlatList
           data={EMOJIS}
           numColumns={numberOfColumns}
-          keyExtractor={(_, index) => `${index}`}
+          keyExtractor={(_, i) => `${i}`}
           renderItem={renderEmoji}
           bounces={false}
           alwaysBounceVertical={false}
