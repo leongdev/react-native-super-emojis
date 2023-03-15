@@ -1,6 +1,6 @@
 {
   "name": "react-native-super-emojis",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A react native library to render all current emojis, on any size",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
