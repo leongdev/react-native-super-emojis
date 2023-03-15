@@ -1,4 +1,4 @@
-import type { ViewStyle } from 'react-native';
+import type { ViewStyle, TextStyle } from 'react-native';
 
 export interface IEmojiItem {
   category: number;
@@ -10,9 +10,13 @@ export interface IEmojiItem {
 export interface EmojiListProps {
   numberOfColumns?: number;
   onSelectEmoji?: (name: string) => void;
+  emojiBoxStyle?: ViewStyle;
+  emojiSize?: number;
+  emojiListStyle?: ViewStyle;
+  sectionSelectedIndex?: number;
   sectionsList?: string[];
   sectionsStyle?: ViewStyle;
-  sectionsTextStyle?: ViewStyle;
+  sectionsTextStyle?: TextStyle;
   sectionsTextContainerStyle?: ViewStyle;
   sectionNode?: React.ReactNode;
   searchEmoji?: string;

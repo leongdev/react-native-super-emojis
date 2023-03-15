@@ -8,12 +8,16 @@ import type { IEmojiItem } from '../../types/index';
 const EmojiList = ({
   numberOfColumns = 6,
   onSelectEmoji,
+  sectionSelectedIndex,
   sectionsList,
   sectionNode,
   sectionsStyle,
   sectionsTextStyle,
   sectionsTextContainerStyle,
   searchEmoji,
+  emojiBoxStyle,
+  emojiSize,
+  emojiListStyle,
 }: EmojiListProps) => {
   const renderEmoji: ListRenderItem<IEmojiItem> = ({ item }) => {
     return (
@@ -22,9 +26,12 @@ const EmojiList = ({
         style={({ pressed }) => [
           styles.buttonContainer,
           { opacity: pressed ? 0.5 : 1 },
+          emojiBoxStyle,
         ]}
       >
-        <Text style={styles.iconText}>{item.emoji}</Text>
+        <Text style={[styles.iconText, { fontSize: emojiSize || 20 }]}>
+          {item.emoji}
+        </Text>
       </Pressable>
     );
   };
@@ -39,6 +46,7 @@ const EmojiList = ({
           {sectionNode && sectionNode}
         </View>
         <FlatList
+          key={numberOfColumns}
           data={EMOJIS}
           numColumns={numberOfColumns}
           keyExtractor={(_, i) => `${i}`}
@@ -53,12 +61,13 @@ const EmojiList = ({
 
   if (searchEmoji) {
     const EMOJIS = EMOJI_DB.filter((emoji) =>
-      emoji.description.includes(searchEmoji)
+      emoji.description.includes(searchEmoji.toLowerCase())
     );
 
     return (
-      <View style={styles.iconListContainer}>
+      <View style={[styles.emojiListContainer, emojiListStyle]}>
         <FlatList
+          key={numberOfColumns}
           data={EMOJIS}
           numColumns={numberOfColumns}
           keyExtractor={(_, index) => `${index}`}
@@ -73,13 +82,41 @@ const EmojiList = ({
     );
   }
 
+  if (sectionSelectedIndex !== undefined && sectionsList) {
+    const EMOJIS = EMOJI_DB.filter(
+      (emoji) => emoji.category === sectionSelectedIndex
+    );
+    return (
+      <View style={sectionsStyle}>
+        <View style={sectionsTextContainerStyle}>
+          <Text style={sectionsTextStyle}>
+            {sectionsList[sectionSelectedIndex]}
+          </Text>
+          {sectionNode && sectionNode}
+        </View>
+        <View style={[styles.emojiListContainer, emojiListStyle]}>
+          <FlatList
+            key={numberOfColumns}
+            data={EMOJIS}
+            numColumns={numberOfColumns}
+            keyExtractor={(_, i) => `${i}`}
+            renderItem={renderEmoji}
+            bounces={false}
+            alwaysBounceVertical={false}
+            alwaysBounceHorizontal={false}
+          />
+        </View>
+      </View>
+    );
+  }
+
   if (sectionsList) {
     if (sectionsList.length > 9) {
       throw new Error('You can only have 9 sections');
     }
 
     return (
-      <View style={styles.iconListContainer}>
+      <View style={[styles.emojiListContainer, emojiListStyle]}>
         <FlatList
           data={sectionsList}
           keyExtractor={(_, index) => `${index}`}
@@ -95,8 +132,9 @@ const EmojiList = ({
   }
 
   return (
-    <View style={styles.iconListContainer}>
+    <View style={[styles.emojiListContainer, emojiListStyle]}>
       <FlatList
+        key={numberOfColumns}
         data={EMOJI_DB}
         numColumns={numberOfColumns}
         keyExtractor={(_, index) => `${index}`}
@@ -119,7 +157,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginHorizontal: 2,
     marginVertical: 2,
-
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -128,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 
-  iconListContainer: {
+  emojiListContainer: {
     height: 300,
     width: 300,
     alignItems: 'center',
