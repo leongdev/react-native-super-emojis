@@ -1,4 +1,4 @@
-# React Native Super Emoji 🦸‍♂️✨🦸‍♀️✨🦸
+# React Native Super Emojis 🦸‍♂️✨🦸‍♀️✨🦸
 
 A react native library to render all current emojis, on any size!
 
@@ -81,7 +81,7 @@ const [emojiName, setEmojiName] = useState('')
 
 ## Made with ❤️ by [@leongdev](https://leongdev.com/)
 
-✨ `react-native-super-emoji` is a personal project made to be used on my other personal projects and I hope that this small lib can help people with the same problem that I faced developing my apps!
+✨ `react-native-super-emojis` is a personal project made to be used on my other personal projects and I hope that this small lib can help people with the same problem that I faced developing my apps!
 
 ## License
 
