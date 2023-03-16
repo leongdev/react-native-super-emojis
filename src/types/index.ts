@@ -8,16 +8,16 @@ export interface IEmojiItem {
 }
 
 export interface EmojiListProps {
-  numberOfColumns?: number;
   onSelectEmoji?: (name: string) => void;
-  emojiBoxStyle?: ViewStyle;
+  searchEmoji?: string;
+  numberOfColumns?: number;
   emojiSize?: number;
+  emojiBoxStyle?: ViewStyle;
   emojiListStyle?: ViewStyle;
   sectionSelectedIndex?: number;
   sectionsList?: string[];
+  sectionNode?: React.ReactNode;
   sectionsStyle?: ViewStyle;
   sectionsTextStyle?: TextStyle;
   sectionsTextContainerStyle?: ViewStyle;
-  sectionNode?: React.ReactNode;
-  searchEmoji?: string;
 }
